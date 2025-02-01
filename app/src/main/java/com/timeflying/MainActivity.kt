@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.timeflying.data.LocationManagerWrapper
 import com.timeflying.data.AnimationSettings
+import com.timeflying.data.BackgroundSettings
 import com.timeflying.ui.components.TimeDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -41,6 +42,7 @@ import java.time.format.DateTimeFormatter
 class MainActivity : ComponentActivity() {
     private lateinit var locationManager: LocationManagerWrapper
     private lateinit var animationSettings: AnimationSettings
+    private lateinit var backgroundSettings: BackgroundSettings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +60,7 @@ class MainActivity : ComponentActivity() {
         locationManager = LocationManagerWrapper(this)
         locationManager.requestLocationUpdates()
         animationSettings = AnimationSettings(this)
+        backgroundSettings = BackgroundSettings(this)
         
         setContent {
             MaterialTheme {
@@ -70,7 +73,8 @@ class MainActivity : ComponentActivity() {
                     ) {
                         TimeDisplay(
                             locationData = locationManager.locationData,
-                            animationSettings = animationSettings
+                            animationSettings = animationSettings,
+                            backgroundSettings = backgroundSettings
                         )
                     }
                     
@@ -92,6 +96,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             SettingsScreen(
                                 animationSettings = animationSettings,
+                                backgroundSettings = backgroundSettings,
                                 onNavigateBack = { showSettings = false }
                             )
                         }

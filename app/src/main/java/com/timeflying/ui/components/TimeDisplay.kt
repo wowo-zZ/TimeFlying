@@ -3,19 +3,24 @@ package com.timeflying.ui.components
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.shape.CircleShape
 import com.timeflying.data.AnimationSettings
 import com.timeflying.data.AnimationType
+import com.timeflying.data.BackgroundSettings
 import com.timeflying.data.LocationData
 import com.timeflying.data.WeatherData
 import com.timeflying.data.WeatherManager
@@ -28,9 +33,25 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
+fun DateWeatherDisplay(
+    currentDate: LocalDate,
+    weatherEmoji: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = "${currentDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日"))} $weatherEmoji",
+        fontSize = 24.sp,
+        color = Color.White,
+        textAlign = TextAlign.Center,
+        modifier = modifier.padding(bottom = 32.dp)
+    )
+}
+
+@Composable
 fun TimeDisplay(
     locationData: LocationData,
     animationSettings: AnimationSettings,
+    backgroundSettings: BackgroundSettings,
     modifier: Modifier = Modifier
 ) {
     var currentTime by remember { mutableStateOf(LocalTime.now()) }
@@ -68,103 +89,106 @@ fun TimeDisplay(
         }
     }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        DateWeatherDisplay(
-            currentDate = LocalDate.now(),
-            weatherEmoji = weatherData.weatherEmoji
+    Box(modifier = modifier.fillMaxSize()) {
+        // 背景图片
+        Image(
+            painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
-        
-        if (needsRefresh) {
-            Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {}
-        }
 
-        when (animationSettings.currentAnimationType) {
-            AnimationType.DIRECT -> {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    val timeStr = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
-                    val digitWidth = if (isLandscape) 70.dp else 50.dp
-                    val fontSize = if (isLandscape) 120.sp else 80.sp
-                    
-                    val hours = timeStr.substring(0, 2)
-                    val minutes = timeStr.substring(3, 5)
-                    val seconds = timeStr.substring(6, 8)
+        // 半透明黑色遮罩
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.4f))
+        )
 
-                    // 显示小时
-                    for (digit in hours) {
-                        Box(modifier = Modifier.width(digitWidth)) {
-                            Text(
-                                text = digit.toString(),
-                                fontSize = fontSize,
-                                color = Color.White,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.fillMaxWidth()
-                            )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            DateWeatherDisplay(
+                currentDate = LocalDate.now(),
+                weatherEmoji = weatherData.weatherEmoji
+            )
+
+            if (needsRefresh) {
+                Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {}
+            }
+
+            when (animationSettings.currentAnimationType) {
+                AnimationType.DIRECT -> {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val timeStr = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                        val digitWidth = if (isLandscape) 70.dp else 50.dp
+                        val fontSize = if (isLandscape) 120.sp else 80.sp
+
+                        val hours = timeStr.substring(0, 2)
+                        val minutes = timeStr.substring(3, 5)
+                        val seconds = timeStr.substring(6, 8)
+
+                        // 显示小时
+                        for (digit in hours) {
+                            Box(modifier = Modifier.width(digitWidth)) {
+                                Text(
+                                    text = digit.toString(),
+                                    fontSize = fontSize,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
                         }
-                    }
 
-                    TimeColon(fontSize = fontSize)
+                        TimeColon(fontSize = fontSize)
 
-                    // 显示分钟
-                    for (digit in minutes) {
-                        Box(modifier = Modifier.width(digitWidth)) {
-                            Text(
-                                text = digit.toString(),
-                                fontSize = fontSize,
-                                color = Color.White,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.fillMaxWidth()
-                            )
+                        // 显示分钟
+                        for (digit in minutes) {
+                            Box(modifier = Modifier.width(digitWidth)) {
+                                Text(
+                                    text = digit.toString(),
+                                    fontSize = fontSize,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
                         }
-                    }
 
-                    TimeColon(fontSize = fontSize)
+                        TimeColon(fontSize = fontSize)
 
-                    // 显示秒钟
-                    for (digit in seconds) {
-                        Box(modifier = Modifier.width(digitWidth)) {
-                            Text(
-                                text = digit.toString(),
-                                fontSize = fontSize,
-                                color = Color.White,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.fillMaxWidth()
-                            )
+                        // 显示秒钟
+                        for (digit in seconds) {
+                            Box(modifier = Modifier.width(digitWidth)) {
+                                Text(
+                                    text = digit.toString(),
+                                    fontSize = fontSize,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
                         }
                     }
                 }
-            }
-            AnimationType.PAGE_FLIP -> {
-                TimeDigitsDisplay(
-                    currentTime = currentTime,
-                    previousTime = previousTime,
-                    isLandscape = isLandscape
-                )
+
+                AnimationType.PAGE_FLIP -> {
+                    TimeDigitsDisplay(
+                        currentTime = currentTime,
+                        previousTime = previousTime,
+                        isLandscape = isLandscape
+                    )
+                }
             }
         }
     }
-}
-
-@Composable
-private fun DateWeatherDisplay(
-    currentDate: LocalDate,
-    weatherEmoji: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = "${currentDate.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日"))} $weatherEmoji",
-        fontSize = 24.sp,
-        color = Color.White,
-        textAlign = TextAlign.Center,
-        modifier = modifier.padding(bottom = 32.dp)
-    )
 }
 
 @Composable
@@ -230,8 +254,14 @@ private fun TimeUnitDisplay(
                 targetState = current[i],
                 transitionSpec = {
                     if (current[i] != previous[i]) {
-                        (slideInVertically { height -> height } + fadeIn(animationSpec = tween(Constants.ANIMATION_DURATION))) with
-                        (slideOutVertically { height -> -height } + fadeOut(animationSpec = tween(Constants.ANIMATION_DURATION)))
+                        (slideInVertically { height -> height } + fadeIn(
+                            animationSpec = tween(
+                                Constants.ANIMATION_DURATION
+                            )
+                        )) with
+                                (slideOutVertically { height -> -height } + fadeOut(
+                                    animationSpec = tween(Constants.ANIMATION_DURATION)
+                                ))
                     } else {
                         EnterTransition.None with ExitTransition.None
                     }
