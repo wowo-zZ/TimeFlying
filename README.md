@@ -1,5 +1,7 @@
 # TimeFlying
 
+English | [简体中文](README_zh.md)
+
 TimeFlying is an elegant Android application that displays time with beautiful animations and customizable backgrounds. It features a modern, minimalist design with various visual effects and settings to enhance your time-viewing experience.
 
 ## Features
