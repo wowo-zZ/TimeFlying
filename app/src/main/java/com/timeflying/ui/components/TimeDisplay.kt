@@ -89,6 +89,16 @@ fun TimeDisplay(
         }
     }
 
+    // 自动切换背景的定时器
+    LaunchedEffect(backgroundSettings.isAutoChangeEnabled) {
+        if (backgroundSettings.isAutoChangeEnabled) {
+            while (true) {
+                delay(60000) // 3分钟
+                backgroundSettings.updateBackgroundType(backgroundSettings.getRandomBackground())
+            }
+        }
+    }
+
     Box(modifier = modifier.fillMaxSize()) {
         // 背景图片，仅在横屏模式下显示
         if (isLandscape) {

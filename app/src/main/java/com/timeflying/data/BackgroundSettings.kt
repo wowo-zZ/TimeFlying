@@ -24,8 +24,22 @@ class BackgroundSettings(context: Context) {
             prefs.edit().putString("current_background", value.name).apply()
         }
 
+    var isAutoChangeEnabled: Boolean
+        get() = prefs.getBoolean("auto_change_enabled", false)
+        private set(value) {
+            prefs.edit().putBoolean("auto_change_enabled", value).apply()
+        }
+
     fun updateBackgroundType(type: BackgroundType) {
         currentBackgroundType = type
+    }
+
+    fun toggleAutoChange(enabled: Boolean) {
+        isAutoChangeEnabled = enabled
+    }
+
+    fun getRandomBackground(): BackgroundType {
+        return BackgroundType.values().random()
     }
 
     fun getBackgroundResourceId(type: BackgroundType): Int {

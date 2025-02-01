@@ -139,6 +139,29 @@ fun SettingsScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    // 自动切换背景设置
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "自动切换背景",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        var isAutoChange by remember { mutableStateOf(backgroundSettings.isAutoChangeEnabled) }
+                        Switch(
+                            checked = isAutoChange,
+                            onCheckedChange = { enabled ->
+                                isAutoChange = enabled
+                                backgroundSettings.toggleAutoChange(enabled)
+                            }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     // 动画设置
                     Row(
                         modifier = Modifier
