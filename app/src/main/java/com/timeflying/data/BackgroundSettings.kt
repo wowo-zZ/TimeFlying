@@ -7,7 +7,8 @@ import com.timeflying.R
 enum class BackgroundType {
     LICH_KING,
     ARAD,
-    JOURNEY_WEST
+    JOURNEY_WEST,
+    NONE
 }
 
 class BackgroundSettings(context: Context) {
@@ -42,15 +43,16 @@ class BackgroundSettings(context: Context) {
         return BackgroundType.values().random()
     }
 
-    fun getBackgroundResourceId(type: BackgroundType): Int {
+    fun getBackgroundResourceId(type: BackgroundType): Int? {
         return when (type) {
             BackgroundType.LICH_KING -> R.drawable.lichking
             BackgroundType.ARAD -> R.drawable.ald
             BackgroundType.JOURNEY_WEST -> R.drawable.mhxy
+            BackgroundType.NONE -> null
         }
     }
 
     fun getCurrentBackgroundResourceId(): Int {
-        return getBackgroundResourceId(currentBackgroundType)
+        return getBackgroundResourceId(currentBackgroundType) ?: R.drawable.lichking
     }
 }

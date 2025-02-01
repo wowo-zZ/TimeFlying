@@ -104,6 +104,7 @@ fun SettingsScreen(
                                         BackgroundType.LICH_KING -> "冰封王座"
                                         BackgroundType.ARAD -> "决战阿拉德"
                                         BackgroundType.JOURNEY_WEST -> "梦回西游"
+                                        BackgroundType.NONE -> "无背景"
                                     },
                                     onValueChange = {},
                                     readOnly = true,
@@ -124,6 +125,7 @@ fun SettingsScreen(
                                                     BackgroundType.LICH_KING -> "冰封王座"
                                                     BackgroundType.ARAD -> "决战阿拉德"
                                                     BackgroundType.JOURNEY_WEST -> "梦回西游"
+                                                    BackgroundType.NONE -> "无背景"
                                                 })
                                             },
                                             onClick = {

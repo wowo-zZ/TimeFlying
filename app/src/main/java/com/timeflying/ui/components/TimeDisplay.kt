@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import com.timeflying.data.AnimationSettings
 import com.timeflying.data.AnimationType
 import com.timeflying.data.BackgroundSettings
+import com.timeflying.data.BackgroundType
 import com.timeflying.data.LocationData
 import com.timeflying.data.WeatherData
 import com.timeflying.data.WeatherManager
@@ -93,28 +94,28 @@ fun TimeDisplay(
     LaunchedEffect(backgroundSettings.isAutoChangeEnabled) {
         if (backgroundSettings.isAutoChangeEnabled) {
             while (true) {
-                delay(60000) // 3分钟
+                delay(60000) // 1分钟
                 backgroundSettings.updateBackgroundType(backgroundSettings.getRandomBackground())
             }
         }
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-        // 背景图片，仅在横屏模式下显示
-        if (isLandscape) {
+        // 背景图片，仅在横屏模式且非无背景时显示
+        if (isLandscape && backgroundSettings.getCurrentBackgroundResourceId() != null) {
             Image(
-                painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
+                painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()!!),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds
             )
         }
 
-        // 半透明黑色遮罩
+        // 半透明黑色遮罩，根据背景类型调整透明度
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.75f))
+                .background(Color.Black.copy(alpha = if (backgroundSettings.currentBackgroundType == BackgroundType.NONE) 1f else 0.75f))
         )
 
         Column(
