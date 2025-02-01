@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@android:color/white"/>
+    <foreground>
+        <vector
+            android:width="108dp"
+            android:height="108dp"
+            android:viewportWidth="108"
+            android:viewportHeight="108">
+            <path
+                android:fillColor="#FF000000"
+                android:pathData="M54,28C39.64,28 28,39.64 28,54C28,68.36 39.64,80 54,80C68.36,80 80,68.36 80,54C80,39.64 68.36,28 54,28ZM54,74C42.95,74 34,65.05 34,54C34,42.95 42.95,34 54,34C65.05,34 74,42.95 74,54C74,65.05 65.05,74 54,74ZM55.5,41.5L51.5,41.5L51.5,55.5L63.5,62.87L65.5,59.66L55.5,53.5L55.5,41.5Z"/>
+        </vector>
+    </foreground>
+</adaptive-icon>
