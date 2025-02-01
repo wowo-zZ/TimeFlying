@@ -90,13 +90,15 @@ fun TimeDisplay(
     }
 
     Box(modifier = modifier.fillMaxSize()) {
-        // 背景图片
-        Image(
-            painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
-        )
+        // 背景图片，仅在横屏模式下显示
+        if (isLandscape) {
+            Image(
+                painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds
+            )
+        }
 
         // 半透明黑色遮罩
         Box(
