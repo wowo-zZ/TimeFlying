@@ -1,44 +1,61 @@
 # TimeFlying
 
-一个优雅的时钟应用，展示当前时间并提供天气信息。
+TimeFlying is an elegant Android application that displays time with beautiful animations and customizable backgrounds. It features a modern, minimalist design with various visual effects and settings to enhance your time-viewing experience.
 
-## 功能特点
+## Features
 
-- 实时显示当前时间，包含小时、分钟和秒数
-- 支持横屏和竖屏显示
-- 优雅的数字切换动画效果
-- 显示当前日期
-- 集成天气信息显示
-- 支持获取当前位置的天气数据
+- **Dynamic Time Display**: Shows current time with smooth animations
+- **Multiple Animation Styles**:
+  - Direct Change: Simple and clean time updates
+  - Page Flip: Elegant page-flipping animation effect
+- **Customizable Backgrounds**:
+  - Lich King Theme: Inspired by World of Warcraft
+  - Arad Theme: Based on Dungeon & Fighter
+  - Journey West Theme: Classic Chinese mythology style
+- **Auto Background Switching**: Option to automatically rotate through background themes
+- **Weather Integration**: Displays current weather information with emoji indicators
+- **Location Services**: Uses device location for accurate weather data
+- **Landscape & Portrait Support**: Optimized layout for both screen orientations
+- **Full Screen Experience**: Immersive display with system UI integration
 
-## 技术栈
+## Technical Stack
 
-- Kotlin
-- Jetpack Compose
-- Kotlin Coroutines
-- Kotlin Serialization
-- Android Location Services
+- **Language**: Kotlin
+- **UI Framework**: Jetpack Compose
+- **Architecture Components**:
+  - Material Design 3
+  - Compose Animation
+  - Android Location Services
+  - Coroutines for asynchronous operations
 
-## 系统要求
+## Installation
 
-- Android 8.0 (API 26) 或更高版本
-- 需要网络连接以获取天气数据
-- 需要位置权限以获取当前位置
+1. Clone the repository
+2. Open the project in Android Studio
+3. Sync project with Gradle files
+4. Build and run on your Android device or emulator
 
-## 安装说明
+## Usage
 
-1. 克隆项目到本地
-2. 使用Android Studio打开项目
-3. 等待Gradle同步完成
-4. 运行应用到设备或模拟器
+1. Launch the app
+2. The time will be displayed in the center of the screen
+3. Access settings by tapping the gear icon in the top-right corner
+4. In settings, you can:
+   - Choose background theme
+   - Toggle auto background switching
+   - Select animation style
+5. The app will maintain screen on and display in full screen mode
 
-## 使用方法
+## Requirements
 
-1. 首次运行时，请授予应用位置权限
-2. 应用会自动显示当前时间和日期
-3. 天气信息会根据当前位置自动更新
-4. 支持横竖屏切换，界面会自动适应
+- Android 5.0 (API level 21) or higher
+- Location permissions for weather features
+- Internet connection for weather data
 
-## 许可证
+## License
 
-本项目采用 MIT 许可证
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
