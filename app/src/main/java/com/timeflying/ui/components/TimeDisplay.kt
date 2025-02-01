@@ -94,9 +94,7 @@ fun TimeDisplay(
         Image(
             painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
 
@@ -104,13 +102,13 @@ fun TimeDisplay(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .systemBarsPadding()
                 .background(Color.Black.copy(alpha = 0.75f))
         )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .systemBarsPadding()
                 .padding(bottom = 100.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
