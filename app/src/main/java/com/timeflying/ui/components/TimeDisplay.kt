@@ -94,19 +94,24 @@ fun TimeDisplay(
         Image(
             painter = painterResource(id = backgroundSettings.getCurrentBackgroundResourceId()),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding(),
+            contentScale = ContentScale.FillBounds
         )
 
         // 半透明黑色遮罩
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.4f))
+                .systemBarsPadding()
+                .background(Color.Black.copy(alpha = 0.75f))
         )
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 100.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
