@@ -26,17 +26,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.timeflying.data.LocationManagerWrapper
+import com.timeflying.data.AnimationSettings
 import com.timeflying.ui.components.TimeDisplay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.timeflying.data.LocationState
+import com.timeflying.ui.components.SettingsIcon
+import com.timeflying.ui.components.SettingsScreen
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MainActivity : ComponentActivity() {
     private lateinit var locationManager: LocationManagerWrapper
+    private lateinit var animationSettings: AnimationSettings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +54,48 @@ class MainActivity : ComponentActivity() {
             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         )
 
-        // 初始化位置服务
+        // 初始化位置服务和设置
         locationManager = LocationManagerWrapper(this)
         locationManager.requestLocationUpdates()
+        animationSettings = AnimationSettings(this)
         
         setContent {
             MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = Color.Black
-                ) {
-                    TimeDisplay(
-                        locationData = locationManager.locationData
-                    )
+                var showSettings by remember { mutableStateOf(false) }
+                
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = Color.Black
+                    ) {
+                        TimeDisplay(
+                            locationData = locationManager.locationData,
+                            animationSettings = animationSettings
+                        )
+                    }
+                    
+                    // 设置按钮
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.TopEnd
+                    ) {
+                        SettingsIcon { showSettings = true }
+                    }
+                    
+                    // 设置页面
+                    if (showSettings) {
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
+                            SettingsScreen(
+                                animationSettings = animationSettings,
+                                onNavigateBack = { showSettings = false }
+                            )
+                        }
+                    }
                 }
             }
         }

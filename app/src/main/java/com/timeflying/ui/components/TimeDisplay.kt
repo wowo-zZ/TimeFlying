@@ -13,6 +13,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.CircleShape
+import com.timeflying.data.AnimationSettings
+import com.timeflying.data.AnimationType
 import com.timeflying.data.LocationData
 import com.timeflying.data.WeatherData
 import com.timeflying.data.WeatherManager
@@ -27,6 +30,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun TimeDisplay(
     locationData: LocationData,
+    animationSettings: AnimationSettings,
     modifier: Modifier = Modifier
 ) {
     var currentTime by remember { mutableStateOf(LocalTime.now()) }
@@ -78,11 +82,73 @@ fun TimeDisplay(
             Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {}
         }
 
-        TimeDigitsDisplay(
-            currentTime = currentTime,
-            previousTime = previousTime,
-            isLandscape = isLandscape
-        )
+        when (animationSettings.currentAnimationType) {
+            AnimationType.DIRECT -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val timeStr = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                    val digitWidth = if (isLandscape) 70.dp else 50.dp
+                    val fontSize = if (isLandscape) 120.sp else 80.sp
+                    
+                    val hours = timeStr.substring(0, 2)
+                    val minutes = timeStr.substring(3, 5)
+                    val seconds = timeStr.substring(6, 8)
+
+                    // 显示小时
+                    for (digit in hours) {
+                        Box(modifier = Modifier.width(digitWidth)) {
+                            Text(
+                                text = digit.toString(),
+                                fontSize = fontSize,
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+
+                    TimeColon(fontSize = fontSize)
+
+                    // 显示分钟
+                    for (digit in minutes) {
+                        Box(modifier = Modifier.width(digitWidth)) {
+                            Text(
+                                text = digit.toString(),
+                                fontSize = fontSize,
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+
+                    TimeColon(fontSize = fontSize)
+
+                    // 显示秒钟
+                    for (digit in seconds) {
+                        Box(modifier = Modifier.width(digitWidth)) {
+                            Text(
+                                text = digit.toString(),
+                                fontSize = fontSize,
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+            }
+            AnimationType.PAGE_FLIP -> {
+                TimeDigitsDisplay(
+                    currentTime = currentTime,
+                    previousTime = previousTime,
+                    isLandscape = isLandscape
+                )
+            }
+        }
     }
 }
 
@@ -188,10 +254,33 @@ private fun TimeColon(
     fontSize: androidx.compose.ui.unit.TextUnit,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = ":",
-        fontSize = fontSize,
-        color = Color.White,
-        modifier = modifier.padding(horizontal = 4.dp)
-    )
+    Box(
+        modifier = modifier.padding(horizontal = 8.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .size((fontSize.value * 0.2).dp)
+                .padding(2.dp)
+                .offset(y = -(fontSize.value * 0.15).dp)
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                shape = CircleShape,
+                color = Color.White.copy(alpha = 0.6f)
+            ) {}
+        }
+        Box(
+            modifier = Modifier
+                .size((fontSize.value * 0.2).dp)
+                .padding(2.dp)
+                .offset(y = (fontSize.value * 0.15).dp)
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                shape = CircleShape,
+                color = Color.White.copy(alpha = 0.6f)
+            ) {}
+        }
+    }
 }
