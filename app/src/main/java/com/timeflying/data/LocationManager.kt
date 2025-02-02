@@ -19,6 +19,7 @@ class LocationManagerWrapper(private val context: Context) : LocationListener {
     private val locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     private var _locationData = LocationData()
     val locationData: LocationData get() = _locationData
+    private var hasValidLocation = false
 
     fun requestLocationUpdates(onPermissionDenied: () -> Unit = {}) {
         if (ContextCompat.checkSelfPermission(
@@ -30,13 +31,23 @@ class LocationManagerWrapper(private val context: Context) : LocationListener {
             return
         }
 
+        if (!hasValidLocation) {
+            try {
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    Constants.LOCATION_UPDATE_INTERVAL,
+                    Constants.LOCATION_UPDATE_DISTANCE,
+                    this
+                )
+            } catch (e: SecurityException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun stopLocationUpdates() {
         try {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                Constants.LOCATION_UPDATE_INTERVAL,
-                Constants.LOCATION_UPDATE_DISTANCE,
-                this
-            )
+            locationManager.removeUpdates(this)
         } catch (e: SecurityException) {
             e.printStackTrace()
         }
@@ -47,6 +58,10 @@ class LocationManagerWrapper(private val context: Context) : LocationListener {
             latitude = location.latitude,
             longitude = location.longitude
         )
+        if (!hasValidLocation) {
+            hasValidLocation = true
+            stopLocationUpdates()
+        }
     }
 
     override fun onProviderEnabled(provider: String) {}

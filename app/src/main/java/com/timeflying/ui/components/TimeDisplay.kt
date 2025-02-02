@@ -122,7 +122,7 @@ fun TimeDisplay(
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
-                .padding(bottom = 100.dp),
+                .padding(bottom = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
