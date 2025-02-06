@@ -1,63 +1,72 @@
 # TimeFlying
 
-English | [简体中文](README_zh.md)
+English | [简体中文](README.md)
 
-TimeFlying is an elegant Android application that displays time with beautiful animations and customizable backgrounds. It features a modern, minimalist design with various visual effects and settings to enhance your time-viewing experience.
+## Introduction
+
+TimeFlying is an elegantly designed Android clock application that provides users with a unique time display experience through graceful animations and modern interface design.
 
 ## Features
 
-- **Dynamic Time Display**: Shows current time with smooth animations
-- **Multiple Animation Styles**:
-  - Direct Change: Simple and clean time updates
-  - Page Flip: Elegant page-flipping animation effect
-- **Customizable Backgrounds**:
-  - Lich King Theme: Inspired by World of Warcraft
-  - Arad Theme: Based on Dungeon & Fighter
-  - Journey West Theme: Classic Chinese mythology style
-- **Auto Background Switching**: Option to automatically rotate through background themes
-- **Weather Integration**: Displays current weather information with emoji indicators
-- **Location Services**: Uses device location for accurate weather data
-- **Landscape & Portrait Support**: Optimized layout for both screen orientations
-- **Full Screen Experience**: Immersive display with system UI integration
+- 🕒 Dynamic Time Display: Real-time digital clock interface
+- 🎨 Beautiful Animations: Smooth interface transitions and interactive animations
+- 🌈 Material You Design: Following Material Design 3 guidelines
+- 📱 Responsive Layout: Perfect adaptation to various screen sizes
+- ⚡ High Performance: Native application built with Jetpack Compose
 
 ## Technical Stack
 
-- **Language**: Kotlin
-- **UI Framework**: Jetpack Compose
-- **Architecture Components**:
-  - Material Design 3
-  - Compose Animation
-  - Android Location Services
-  - Coroutines for asynchronous operations
+- Development Language: Kotlin 1.8.10
+- UI Framework: Jetpack Compose 2023.10.00
+- Architecture Components:
+  - ViewModel 2.6.2
+  - Coroutines 1.7.3
+  - Kotlin Flow
+- Serialization: Kotlinx Serialization 1.5.1
+- Build Tool: Gradle 8.1.0 with Kotlin DSL
+
+## System Requirements
+
+- Android 8.0 (API 26) or higher
+- Android Studio Giraffe (2022.3.1) or newer
+- Target Android Version: Android 14 (API 34)
 
 ## Installation
 
 1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/TimeFlying.git
+   ```
+
 2. Open the project in Android Studio
-3. Sync project with Gradle files
+
+3. Sync Gradle files
+   - Click the "Sync Project with Gradle Files" button in the toolbar
+   - Or run `./gradlew build` in terminal
+
 4. Build and run on your Android device or emulator
+   - Make sure USB debugging is enabled on your device
+   - Click the "Run" button in the toolbar or use shortcut `Shift + F10`
 
-## Usage
+## Development Environment
 
-1. Launch the app
-2. The time will be displayed in the center of the screen
-3. Access settings by tapping the gear icon in the top-right corner
-4. In settings, you can:
-   - Choose background theme
-   - Toggle auto background switching
-   - Select animation style
-5. The app will maintain screen on and display in full screen mode
-
-## Requirements
-
-- Android 5.0 (API level 21) or higher
-- Location permissions for weather features
-- Internet connection for weather data
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+- JDK 8 (JVM target 1.8)
+- Android Studio Giraffe (2022.3.1) or newer
+- Android SDK Build-Tools 34.0.0
+- Android SDK Platform 34
+- Kotlin 1.8.10
+- Gradle 8.1.0
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome all forms of contributions, whether they're new features, bug fixes, or documentation improvements. Please follow these steps:
+
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

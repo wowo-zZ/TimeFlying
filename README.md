@@ -1,6 +1,6 @@
 # TimeFlying
 
-[English](README_en.md) | 简体中文
+简体中文 | [English](README_en.md)
 
 ## 项目简介
 
@@ -16,19 +16,20 @@ TimeFlying 是一款精心设计的 Android 时钟应用，通过优雅的动画
 
 ## 技术栈
 
-- 开发语言：Kotlin
-- UI 框架：Jetpack Compose
+- 开发语言：Kotlin 1.8.10
+- UI 框架：Jetpack Compose 2023.10.00
 - 架构组件：
-  - ViewModel
-  - Coroutines 协程
+  - ViewModel 2.6.2
+  - Coroutines 协程 1.7.3
   - Kotlin Flow
-- 序列化：Kotlinx Serialization
-- 构建工具：Gradle Kotlin DSL
+- 序列化：Kotlinx Serialization 1.5.1
+- 构建工具：Gradle 8.1.0 with Kotlin DSL
 
 ## 系统要求
 
 - Android 8.0 (API 26) 或更高版本
-- 推荐 Android Studio Giraffe (2022.3.1) 或更新版本
+- Android Studio Giraffe (2022.3.1) 或更新版本
+- 目标 Android 版本：Android 14 (API 34)
 
 ## 安装步骤
 
@@ -49,10 +50,12 @@ TimeFlying 是一款精心设计的 Android 时钟应用，通过优雅的动画
 
 ## 开发环境配置
 
-- JDK 17 或更高版本
-- Android Studio 最新版本
+- JDK 8 (JVM target 1.8)
+- Android Studio Giraffe (2022.3.1) 或更新版本
 - Android SDK Build-Tools 34.0.0
 - Android SDK Platform 34
+- Kotlin 1.8.10
+- Gradle 8.1.0
 
 ## 贡献指南
 
