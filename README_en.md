@@ -69,4 +69,4 @@ We welcome all forms of contributions, whether they're new features, bug fixes, 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License 

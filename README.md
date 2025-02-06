@@ -69,4 +69,4 @@ TimeFlying 是一款精心设计的 Android 时钟应用，通过优雅的动画
 
 ## 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详细信息
+本项目采用 MIT 许可证
